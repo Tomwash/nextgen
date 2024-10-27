@@ -1,4 +1,3 @@
-import { NextApiRequest } from "next";
 import axios from "axios";
 
 let accessToken = ""; // Store the access token in memory
@@ -23,8 +22,7 @@ async function refreshAccessToken() {
     accessToken = response.data.access_token;
     return accessToken;
   } catch (error) {
-    console.error("Error refreshing access token:");
-    throw new Error("Failed to refresh access token");
+    throw new Error("Failed to refresh access token", error!);
   }
 }
 
@@ -57,21 +55,20 @@ async function sendEmail(name: string, email: string, message: string) {
     );
     console.log("Email sent successfully:", zohoResponse);
     return zohoResponse;
-  } catch (error: any) {
-    console.log("Email sent failed:", error.response.data);
-    if (error.response && error.response.status === 401) {
-      // If unauthorized, refresh token and retry
-      accessToken = await refreshAccessToken();
-      return sendEmail(name, email, message); // Retry sending the email with new token
-    } else {
-      console.error("Error sending email:");
-      throw new Error("Failed to send email");
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      console.log("Email sent failed:", error.response.data);
+      if (error.response.status === 401) {
+        // If unauthorized, refresh token and retry
+        accessToken = await refreshAccessToken();
+        return sendEmail(name, email, message); // Retry sending the email with new token
+      }
     }
+    throw new Error("Failed to send email");
   }
 }
-
 // API handler
-export async function POST(req: any) {
+export async function POST(req: Request) {
   const reqBody = await req.json();
   const { name, email, message } = reqBody;
 
@@ -84,7 +81,7 @@ export async function POST(req: any) {
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Error with route /inquiry:");
+    console.error("Error with route /inquiry:", error);
     return new Response(
       JSON.stringify({ message: "Inquiry failed to send." }),
       { status: 500, headers: { "Content-Type": "application/json" } }
