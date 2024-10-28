@@ -33,7 +33,7 @@ export default function Home() {
         />
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">Articulate your idea</li>
-          <li className="mb-2">Let us build it</li>
+          <li className="mb-2">Let me build it</li>
           <li>Prove it</li>
         </ol>
         <Link href="/pricing">
