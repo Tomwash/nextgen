@@ -56,7 +56,7 @@ const PackageCard: React.FC<PackageProps> = ({
 
       {/* What's Included */}
       <h3 className="text-2xl font-bold text-orange-300 mb-4 flex items-center">
-        <span className="mr-2">📋</span>What's Included
+        <span className="mr-2">📋</span>What&apos;s Included
       </h3>
       <div className="space-y-4 mb-6 border-l-4 border-orange-400 pl-4">
         {whatsIncluded.map((item, index) => (

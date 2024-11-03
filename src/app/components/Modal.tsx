@@ -1,6 +1,5 @@
 // components/Modal.tsx
 import React from "react";
-import Footer from "./Footer";
 
 interface ModalProps {
   isOpen: boolean;
