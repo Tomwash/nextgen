@@ -23,8 +23,22 @@ const Footer: React.FC<FooterProps> = ({
   const displayMinutes = Math.floor((totalSeconds % 3600) / 60);
 
   return (
-    <footer className="footer">
-      <p>
+    <footer className="p-2 text-center text-sm border-t border-gray-300 mt-5 px-8 py-6 bg-gray-900 border-t border-gray-700">
+      <div className="max-w-4xl mx-auto text-center space-y-4">
+        <p className="text-gray-400">
+          &copy; 2024 NextGenProof. All rights reserved.
+        </p>
+        <p className="text-gray-400">
+          Have questions? Reach us at{" "}
+          <a
+            href="mailto:tom@nextgenproof.com"
+            className="text-teal-400 hover:underline"
+          >
+            tom@nextgenproof.com
+          </a>
+        </p>
+      </div>
+      <p className="mt-2">
         Time spent developing this:
         {displayDays > 0
           ? ` ${displayDays} day${displayDays > 1 ? "s" : ""},`
@@ -36,15 +50,6 @@ const Footer: React.FC<FooterProps> = ({
           ? ` ${displayMinutes} minute${displayMinutes > 1 ? "s" : ""}`
           : ""}
       </p>
-      <style jsx>{`
-        .footer {
-          padding: 10px;
-          text-align: center;
-          font-size: 14px;
-          border-top: 1px solid #ddd;
-          margin-top: 20px;
-        }
-      `}</style>
     </footer>
   );
 };

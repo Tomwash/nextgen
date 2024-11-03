@@ -22,29 +22,25 @@ async function refreshAccessToken() {
     accessToken = response.data.access_token;
     return accessToken;
   } catch (error) {
-    throw new Error("Failed to refresh access token", error!);
+    console.error("Failed to refresh access token", error);
+    throw new Error("Failed to refresh access token");
   }
 }
 
 // Helper function to send email
-async function sendEmail(name: string, email: string, message: string) {
+async function sendEmail(to: string, subject: string, htmlContent: string) {
   if (!accessToken) {
-    accessToken = await refreshAccessToken(); // Get a new access token if none exists
+    accessToken = await refreshAccessToken();
   }
 
-  console.log(accessToken);
   try {
     const zohoResponse = await axios.post(
       "https://mail.zoho.com/api/accounts/1679262000000008002/messages",
       {
         fromAddress: "tom@nextgenproof.com",
-        toAddress: "tommyjohn2006@gmail.com",
-        subject: "New Next Gen Inquiry Received",
-        content: `
-          <p>You have a new inquiry from <strong>${name}</strong> (<a href="mailto:${email}">${email}</a>).</p>
-          <p><strong>Message:</strong></p>
-          <p>${message}</p>
-        `,
+        toAddress: to,
+        subject: subject,
+        content: htmlContent,
       },
       {
         headers: {
@@ -53,31 +49,78 @@ async function sendEmail(name: string, email: string, message: string) {
         },
       }
     );
-    console.log("Email sent successfully:", zohoResponse);
     return zohoResponse;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      console.log("Email sent failed:", error.response.data);
+      console.error("Email send failed:", error.response.data);
       if (error.response.status === 401) {
-        // If unauthorized, refresh token and retry
         accessToken = await refreshAccessToken();
-        return sendEmail(name, email, message); // Retry sending the email with new token
+        return sendEmail(to, subject, htmlContent); // Retry with new token
       }
     }
     throw new Error("Failed to send email");
   }
 }
+
+// Email templates
+function generateInquiryNotificationTemplate(
+  name: string,
+  email: string,
+  message: string
+) {
+  return `
+    <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+      <h2>New Inquiry Received</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+      <p><strong>Message:</strong></p>
+      <p>${message}</p>
+    </div>
+  `;
+}
+
+function generateConfirmationTemplate(name: string) {
+  return `
+    <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+      <h2>Thank you for your inquiry, ${name}!</h2>
+      <p>I have received your message and will get back to you shortly.</p>
+      <p>In the meantime, feel free to reach out to me at <a href="mailto:tom@nextgenproof.com">tom@nextgenproof.com</a> if you have any further questions.</p>
+      <p>Best regards,</p>
+      <p>The NextGenProof Team</p>
+    </div>
+  `;
+}
+
 // API handler
 export async function POST(req: Request) {
   const reqBody = await req.json();
   const { name, email, message } = reqBody;
 
-  console.log("Received inquiry:", { name, email, message });
-
   try {
-    await sendEmail(name, email, message);
+    // Send email to yourself
+    const notificationTemplate = generateInquiryNotificationTemplate(
+      name,
+      email,
+      message
+    );
+    await sendEmail(
+      "tommyjohn2006@gmail.com",
+      "New Next Gen Inquiry Received",
+      notificationTemplate
+    );
+
+    // Send confirmation email to the inquirer
+    const confirmationTemplate = generateConfirmationTemplate(name);
+    await sendEmail(
+      email,
+      "Thank you for reaching out to NextGenProof",
+      confirmationTemplate
+    );
+
     return new Response(
-      JSON.stringify({ message: "Inquiry email sent successfully." }),
+      JSON.stringify({
+        message: "I have received your inquiry. I will get back to you soon.",
+      }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
