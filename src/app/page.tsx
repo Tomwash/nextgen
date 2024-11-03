@@ -29,13 +29,13 @@ export default function Home() {
           <li>Prove it</li>
         </ol>
         <Link href="/pricing">
-          <button className="w-full bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-4 border border-gray-400 rounded-md shadow">
+          <button className="w-full bg-white hover:bg-neutral-100 text-neutral-800 font-semibold py-3 px-4 border border-neutral-400 rounded-md shadow">
             See Pricing
           </button>
         </Link>
         <button
           onClick={openModal}
-          className="w-full py-3 bg-orange-500 hover:bg-orange-400 rounded-md font-semibold text-white text-lg focus:outline-none"
+          className="w-full py-3 bg-neutral-500 hover:bg-neutral-400 rounded-md font-semibold text-white text-lg focus:outline-none"
         >
           Reach out to us
         </button>

@@ -23,12 +23,12 @@ const Footer: React.FC<FooterProps> = ({
   const displayMinutes = Math.floor((totalSeconds % 3600) / 60);
 
   return (
-    <footer className="p-2 text-center text-sm border-t border-gray-300 mt-5 px-8 py-6 bg-gray-900 border-t border-gray-700">
+    <footer className="p-2 text-center text-sm border-t border-neutral-300 mt-5 px-8 py-6 bg-neutral-900 border-t border-neutral-700">
       <div className="max-w-4xl mx-auto text-center space-y-4">
-        <p className="text-gray-400">
+        <p className="text-neutral-400">
           &copy; 2024 NextGenProof. All rights reserved.
         </p>
-        <p className="text-gray-400">
+        <p className="text-neutral-400">
           Have questions? Reach us at{" "}
           <a
             href="mailto:tom@nextgenproof.com"

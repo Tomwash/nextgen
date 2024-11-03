@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const Header: React.FC = () => {
   return (
-    <header className="flex items-center p-4 border-b border-gray-300">
+    <header className="flex items-center p-4 border-b border-neutral-300">
       <Link href="/" passHref>
         <Image
           src="/nextgen.png"

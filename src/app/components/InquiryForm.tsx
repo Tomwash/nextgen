@@ -52,11 +52,14 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onCancel }) => {
   };
 
   return (
-    <div className="p-6 bg-gray-800 rounded-lg text-white w-full max-w-md mx-auto">
-      <p className="text-center text-gray-400 mb-6">Get in Touch</p>
+    <div className="p-6 bg-neutral-800 rounded-lg text-white w-full max-w-md mx-auto">
+      <p className="text-center text-neutral-400 mb-6">Get in Touch</p>
       <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
         <div className="flex flex-col">
-          <label htmlFor="name" className="text-sm font-medium text-gray-300">
+          <label
+            htmlFor="name"
+            className="text-sm font-medium text-neutral-300"
+          >
             Name
           </label>
           <input
@@ -66,7 +69,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onCancel }) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             onBlur={() => setIsNameDirty(true)} // Set dirty state on blur
-            className="p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-400"
+            className="p-3 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:outline-none focus:border-neutral-400"
             required
             aria-invalid={isNameDirty && !name ? "true" : "false"}
             aria-describedby={isNameDirty && !name ? "name-error" : undefined}
@@ -79,7 +82,10 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onCancel }) => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="email" className="text-sm font-medium text-gray-300">
+          <label
+            htmlFor="email"
+            className="text-sm font-medium text-neutral-300"
+          >
             Email
           </label>
           <input
@@ -89,7 +95,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onCancel }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             onBlur={() => setIsEmailDirty(true)} // Set dirty state on blur
-            className="p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-400"
+            className="p-3 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:outline-none focus:border-neutral-400"
             required
             aria-invalid={isEmailDirty && !email ? "true" : "false"}
             aria-describedby={
@@ -106,7 +112,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onCancel }) => {
         <div className="flex flex-col">
           <label
             htmlFor="message"
-            className="text-sm font-medium text-gray-300"
+            className="text-sm font-medium text-neutral-300"
           >
             How can we help you?
           </label>
@@ -116,7 +122,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onCancel }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onBlur={() => setIsMessageDirty(true)} // Set dirty state on blur
-            className="p-3 h-24 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-orange-400 resize-none"
+            className="p-3 h-24 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:outline-none focus:border-neutral-400 resize-none"
             required
             aria-invalid={isMessageDirty && !message ? "true" : "false"}
             aria-describedby={
@@ -132,7 +138,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onCancel }) => {
 
         <button
           type="submit"
-          className="w-full py-3 bg-orange-500 hover:bg-orange-400 rounded-md font-semibold text-white text-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
+          className="w-full py-3 bg-neutral-500 hover:bg-neutral-400 rounded-md font-semibold text-white text-lg focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-opacity-50"
           aria-label="Submit Inquiry"
         >
           Submit Inquiry

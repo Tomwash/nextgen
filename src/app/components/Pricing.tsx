@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 const Pricing = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">
+    <div className="min-h-screen bg-gradient-to-b from-black to-neutral-900 text-white">
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-12">
         <h1 className="text-4xl font-bold mb-8 text-center text-white-400">

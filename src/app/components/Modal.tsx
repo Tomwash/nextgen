@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       <div className="bg-transparent p-12 rounded-lg max-w-lg w-full relative">
         <button
           onClick={onClose}
-          className="absolute top-0 right-0 px-4 px-2 text-white rounded hover:bg-gray-600 border border-white-500"
+          className="absolute top-0 right-0 px-4 px-2 text-white rounded hover:bg-neutral-600 border border-white-500"
         >
           Close
         </button>
